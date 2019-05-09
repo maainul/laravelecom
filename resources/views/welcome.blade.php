@@ -248,6 +248,8 @@
 									foreach($all_published_manufacture as $v_manufacture){?>
 										<li><a href="#"> <span class="pull-right">(50)</span>{{{$v_manufacture->manufature_name}}}</a></li>
 									<?php } ?>
+
+									
 								</ul>
 							</div>
 						</div><!--/brands_products-->
