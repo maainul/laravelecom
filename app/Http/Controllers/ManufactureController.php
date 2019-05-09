@@ -13,6 +13,8 @@ class ManufactureController extends Controller
     //add brand form
     public function index()
     {
+        $this->AdminAuthCheck();
+        
     	return view('admin.add_manufacture');
     }
 
@@ -32,6 +34,10 @@ class ManufactureController extends Controller
     //list of manufactures or brands
     public function all_manufacture()
     {
+        
+
+        $this->AdminAuthCheck();
+
     	$all_manufacture_info = DB::table('tbl_manufacture')->get();
     	$manage_manufacture = view('admin.all_manufacture')
     						->with('all_manufacture_info',$all_manufacture_info);
@@ -62,6 +68,10 @@ class ManufactureController extends Controller
     //edit form//brand//manufacture
     public function edit_manufacture($manufature_id)
     {
+        
+
+        $this->AdminAuthCheck();
+
     	$manufacture_info = DB::table('tbl_manufacture')
     						->where('manufature_id',$manufature_id)
     						->first();
@@ -92,5 +102,17 @@ class ManufactureController extends Controller
 
     	Session::get('message','manufacture delete successfully');
     	return Redirect::to('/all-manufacture');
+    }
+//login authentication
+    public function AdminAuthCheck()
+    {
+        $admin_id = Session::get('admin_id');
+        if($admin_id){
+            return;
+        }
+        else{
+            return Redirect::to('/admin')->send();
+        }
+
     }
 }

@@ -28,7 +28,7 @@ Route::get('/','Homecontroller@index');
 Route::get('/logout','SuperAdminController@logout');
 Route::get('/admin','AdminController@index');
 Route::post('/admin-dashboard','AdminController@dashboard');
-Route::get('/dashboard','AdminController@show_dashboard');
+Route::get('/dashboard','SuperAdminController@index');
 
 //category........................
 Route::get('/add-category','CategoryController@index');
@@ -53,3 +53,9 @@ Route::get('/delete-manufacture/{manufature_id}','ManufactureController@delete_m
 //products..........................................................
 Route::get('/add-product','ProductController@index');
 Route::post('/save-product','ProductController@save_product');
+Route::get('/all-product','ProductController@all_product');
+Route::get('/inactive-product/{product_id}','ProductController@inactive_product');
+Route::get('/active-product/{product_id}','ProductController@active_product');
+Route::get('/edit-product/{product_id}','ProductController@edit_product');
+Route::post('/update-product/{product_id}','ProductController@update_product');
+Route::get('/delete-product/{product_id}','ProductController@delete_product');

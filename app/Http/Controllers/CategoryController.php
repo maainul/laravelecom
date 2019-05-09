@@ -14,12 +14,14 @@ class CategoryController extends Controller
     //add category
     public function index()
     {
+        $this -> AdminAuthCheck();
     	return view('admin.add_category');
 }
 
     //list of category
     public function all_category()
     {
+        $this -> AdminAuthCheck();
     	$all_category_info = DB::table('tbl_category')->get();
     	$manage_category = view('admin.all_category')
     					   ->with('all_category_info',$all_category_info);
@@ -73,6 +75,7 @@ class CategoryController extends Controller
     {
     	//echo $category_id;
     	//return view('admin.edit_category');
+        $this->AdminAuthCheck();
     	$category_info = DB::table('tbl_category')
     			->where('category_id',$category_id)
     			->first();//for individual id 
@@ -104,5 +107,18 @@ class CategoryController extends Controller
     		->delete();
     	Session::get('message','category deleted successfully');
     	return Redirect::to('/all-category');
+    }
+
+//login authentication
+    public function AdminAuthCheck()
+    {
+        $admin_id = Session::get('admin_id');
+        if($admin_id){
+            return;
+        }
+        else{
+            return Redirect::to('/admin')->send();
+        }
+
     }
 }

@@ -14,6 +14,8 @@ class ProductController extends Controller
     //add product form
     public function index()
     {
+        $this->AdminAuthCheck();
+        
     	return view('admin.add_product');
     }
     
@@ -47,12 +49,70 @@ class ProductController extends Controller
 
     		}
     	}
-    	$data['image']='';
+    	$data['product_image']='';
     	DB::table('tbl_products')->insert($data);
     	Session::put('message','product added successfully without photo');
     	return Redirect::to('/add-product');
-    
+    }
+
+    //all product
+    public function all_product()
+    {
+        $this->AdminAuthCheck();
+
+    	$all_product_info = DB::table('tbl_products')
+    						->join('tbl_category','tbl_products.category_id','=','tbl_category.category_id')
+    						->join('tbl_manufacture','tbl_products.manufature_id','=','tbl_manufacture.manufature_id')
+    						->get();
+    	$manage_product = view('admin.all_product')
+    					->with('all_product_info',$all_product_info);
+    	return view('admin_layout')
+    				->with('admin.all_product',$manage_product);
+    }
+     //inactive
+    public function inactive_product($product_id)
+    {
+    	echo $product_id;
+    	DB::table('tbl_products')
+    		->where('product_id',$product_id)
+    		->update(['product_status'=>0]);
+    	Session::put('message','product updated successfully');
+    		return Redirect::to('/all-product');
+
+    }
+
+    //active
+    public function active_product($product_id)
+    {
+    	//echo $category_id;
+    	DB::table('tbl_products')
+    		->where('product_id',$product_id)
+    		->update(['product_status'=>1]);
+    	Session::put('message','product updated successfully');
+    		return Redirect::to('/all-product');
+
+    }
+    //delete
+    public function delete_product($product_id)
+    {
+    	DB::table('tbl_products')
+    		->where('product_id',$product_id)
+    		->delete();
+    	Session::get('message','product deleted successfully');
+    	return Redirect::to('/all-product');
+    }
+//authentication
+    public function AdminAuthCheck()
+    {
+        $admin_id = Session::get('admin_id');
+        if($admin_id){
+            return;
+        }
+        else{
+            return Redirect::to('/admin')->send();
+        }
 
     }
 
 }
+  
