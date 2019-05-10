@@ -18,6 +18,13 @@
 //frontend -----------------------------------
 Route::get('/','Homecontroller@index');
 
+//category wise product 
+Route::get('/product-by-category/{category_id}','HomeController@show_product_by_category');
+//brnad_wise_product
+Route::get('/brand-wise-product/{manufature_id}','HomeController@brand_wise_product');
+//view-product
+Route::get('/view-product/{manufature_id}','HomeController@product_details_by_id');
+
 
 
 
@@ -40,6 +47,8 @@ Route::get('/edit-category/{category_id}','CategoryController@edit_category');
 Route::post('/update-category/{category_id}','CategoryController@update_category');
 Route::get('/delete-category/{category_id}','CategoryController@delete_category');
 
+
+
 //brand route........................................................
 Route::get('/add-manufacture','ManufactureController@index');
 Route::post('/save-manufacture','ManufactureController@save_manufacture');
@@ -59,3 +68,11 @@ Route::get('/active-product/{product_id}','ProductController@active_product');
 Route::get('/edit-product/{product_id}','ProductController@edit_product');
 Route::post('/update-product/{product_id}','ProductController@update_product');
 Route::get('/delete-product/{product_id}','ProductController@delete_product');
+
+//slider............................................................
+Route::get('/add-slider','SliderController@index');
+Route::post('/save-slider','SliderController@save_slider');
+Route::get('/all-slider','SliderController@all_slider');
+Route::get('/inactive-slider/{slider_id}','SliderController@inactive_slider');
+Route::get('/active-slider/{slider_id}','SliderController@active_slider');
+Route::get('/delete-slider/{slider_id}','SliderController@delete_slider');
