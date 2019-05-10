@@ -14,7 +14,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-    	$this->AdminAuthCheck();
+    	//$this->AdminAuthCheck();
 
     	$all_published_product = DB::table('tbl_products')
     						->join('tbl_category','tbl_products.category_id','=','tbl_category.category_id')
@@ -33,7 +33,7 @@ class HomeController extends Controller
     public function show_product_by_category($category_id)
     {
         //echo $category_id;
-        $this->AdminAuthCheck();
+       // $this->AdminAuthCheck();
         $show_product_category = DB::table('tbl_products')
                             ->join('tbl_category','tbl_products.category_id','=','tbl_category.category_id')
                             ->join('tbl_manufacture','tbl_products.manufature_id','=','tbl_manufacture.manufature_id')
@@ -53,7 +53,7 @@ class HomeController extends Controller
     public function brand_wise_product($manufature_id)
     {
          // echo $manufature_id;
-        $this->AdminAuthCheck();
+       // $this->AdminAuthCheck();
         $show_product_brand = DB::table('tbl_products')
                             ->join('tbl_category','tbl_products.category_id','=','tbl_category.category_id')
                             ->join('tbl_manufacture','tbl_products.manufature_id','=','tbl_manufacture.manufature_id')
@@ -72,7 +72,7 @@ class HomeController extends Controller
     public function product_details_by_id($product_id)
     {
                  // echo $manufature_id;
-        $this->AdminAuthCheck();
+       // $this->AdminAuthCheck();
         $product_by_details = DB::table('tbl_products')
                             ->join('tbl_category','tbl_products.category_id','=','tbl_category.category_id')
                             ->join('tbl_manufacture','tbl_products.manufature_id','=','tbl_manufacture.manufature_id')
@@ -88,16 +88,16 @@ class HomeController extends Controller
     }
 
    //login authentication
-    public function AdminAuthCheck()
-    {
-        $admin_id = Session::get('admin_id');
-        if($admin_id){
-            return;
-        }
-        else{
-            return Redirect::to('/admin')->send();
-        }
+    // public function AdminAuthCheck()
+    // {
+    //     $admin_id = Session::get('admin_id');
+    //     if($admin_id){
+    //         return;
+    //     }
+    //     else{
+    //         return Redirect::to('/admin')->send();
+    //     }
 
-    }
+    // }
 
 }
